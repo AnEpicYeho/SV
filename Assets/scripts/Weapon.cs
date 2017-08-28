@@ -20,16 +20,18 @@ public class Weapon : MonoBehaviour {
 			target.GetComponent<Character> ().receibeDamange (damange);
 		}
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
+		RaycastHit hit;
+
+		Vector3 direction = transform.TransformDirection (Vector3.forward);
+		Debug.DrawRay (transform.parent.position,direction,Color.red);
+
 		timeForNextShoot -= Time.deltaTime;
+
 		if(Input.GetAxis("Fire1")!=0 && timeForNextShoot<=0){
 			timeForNextShoot = fireRate;
-
-			RaycastHit hit;
-
-			Vector3 direction = transform.TransformDirection (Vector3.forward);
 
 			if(Physics.Raycast(transform.parent.position ,direction, out hit, shootDistance)){
 				doDamange (hit.transform.gameObject);

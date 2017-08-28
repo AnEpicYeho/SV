@@ -20,10 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4606046818515520}
   - component: {fileID: 33382922398809830}
-  - component: {fileID: 65319038471586796}
   - component: {fileID: 23510205081837242}
   - component: {fileID: 114756495785517086}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: 'Weapon '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1021021011419326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.17, y: -0.754, z: 1.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,18 +81,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1021021011419326}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65319038471586796
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1021021011419326}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114756495785517086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,5 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a063cf62b08be47987a6e0f442c5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damange: 0
-  shootDistance: 0
+  damange: 10
+  shootDistance: 10
+  fireRate: 0.15
