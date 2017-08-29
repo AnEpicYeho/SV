@@ -6,10 +6,13 @@ public class Inventory : MonoBehaviour {
 
 	public GameObject[] weapons;
 	private GameObject activeWeapon;
-	private int securityAccesLevel;
+	private int AccesLevel;
 
 	// Use this for initialization
 
+	public int getAccesLevel(){
+		return AccesLevel;
+	}
 
 	void Start () {
 		
