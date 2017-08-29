@@ -89,9 +89,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1021021011419326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1a063cf62b08be47987a6e0f442c5a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 280edd8dfa2f2974d9b8d12be1521e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damange: 10
-  shootDistance: 10
-  fireRate: 0.15
+  shootDistance: 100
+  fireRate: 0.2
