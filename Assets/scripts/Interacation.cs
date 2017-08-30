@@ -14,7 +14,7 @@ public class Interacation : MonoBehaviour {
 		RaycastHit hit;
 
 		Vector3 direction = transform.TransformDirection (Vector3.forward);
-		Debug.DrawRay (transform.parent.position,direction,Color.red);
+		Debug.DrawRay (transform.position,direction,Color.red);
 
 		if(Input.GetKey(KeyCode.F) && Physics.Raycast(transform.position ,direction, out hit,10)){
 			Usable usable = hit.transform.GetComponent<Usable>();
