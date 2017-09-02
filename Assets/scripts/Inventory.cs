@@ -14,6 +14,10 @@ public class Inventory : MonoBehaviour {
 		return AccesLevel;
 	}
 
+	public void upgradeAccesLevel(){
+		AccesLevel++;
+	}
+
 	void Start () {
 		
 	}
