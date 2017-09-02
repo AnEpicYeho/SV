@@ -42,6 +42,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+		//climb
+		private float heightFactor;
+		private bool isClimbing;
+		public float climbSpeed;
+
         // Use this for initialization
         private void Start()
         {
@@ -55,7 +60,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+			heightFactor = 3.2f;
         }
+
+		void OnTriggerEnter(Collider other) {
+			if(other.tag== "Climbable"){
+				isClimbing = true;
+			}
+		}
+
+		void OnTriggerExit(Collider other) {
+			if(other.tag== "Climbable"){
+				isClimbing = false;
+			}
+		}
+		private void climbUp(){
+			transform.position += (Vector3.up / heightFactor)*climbSpeed;
+		}
+		private void climbDown(){
+			transform.position += (Vector3.down / heightFactor)*climbSpeed;
+		}
 
 
         // Update is called once per frame
@@ -88,7 +113,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
-            m_NextStep = m_StepCycle + .5f;
+			m_NextStep = m_StepCycle + .5f;
         }
 
 
@@ -97,40 +122,56 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			crouch ();
 
             float speed;
-            GetInput(out speed);
-            // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+           	GetInput(out speed);
 
-            // get a normal for the surface that is being touched to move along it
-            RaycastHit hitInfo;
-            Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+			if (!isClimbing) {
+				// always move along the camera forward as it is the direction that it being aimed at
+				Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
+				// get a normal for the surface that is being touched to move along it
+
+				RaycastHit hitInfo;
+
+				Physics.SphereCast (transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+					m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+				desiredMove = Vector3.ProjectOnPlane (desiredMove, hitInfo.normal).normalized;
 
 
-            if (m_CharacterController.isGrounded)
-            {
-                m_MoveDir.y = -m_StickToGroundForce;
+				m_MoveDir.x = desiredMove.x * speed;
+				m_MoveDir.z = desiredMove.z * speed;
+			} else {
+				m_MoveDir.x = 0;
+				m_MoveDir.z = 0; 
+			}
+           
+			print (isClimbing);
 
-                if (m_Jump)
-                {
-                    m_MoveDir.y = m_JumpSpeed;
-                    PlayJumpSound();
-                    m_Jump = false;
-                    m_Jumping = true;
-                }
-            }
-            else
+			if (m_CharacterController.isGrounded && !isClimbing) {
+				m_MoveDir.y = -m_StickToGroundForce;
+
+				if (m_Jump) {
+					m_MoveDir.y = m_JumpSpeed;
+					PlayJumpSound ();
+					m_Jump = false;
+					m_Jumping = true;
+				}
+			} else if (isClimbing) {
+				if(m_Camera.transform.rotation.x>0 && Input.GetAxis("Vertical")>0){
+					climbDown ();
+				}else if(m_Camera.transform.rotation.x<0 && Input.GetAxis("Vertical")>0){
+					climbUp ();
+				}
+			} else
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
-            }
-            m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
+			}
 
-            ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);
+			if(!isClimbing){
+           		m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
+				ProgressStepCycle(speed);
+				UpdateCameraPosition(speed);
+			}
+            
 
             m_MouseLook.UpdateCursorLock();
         }
