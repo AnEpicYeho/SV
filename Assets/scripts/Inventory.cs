@@ -51,7 +51,6 @@ public class Inventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		print ("asdasd "+Input.mouseScrollDelta.y);
 		if (Input.mouseScrollDelta.y > 0) {
 			selectNextWeapon ();
 		} else if(Input.mouseScrollDelta.y < 0) {

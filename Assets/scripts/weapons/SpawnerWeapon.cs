@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SpawnerWeapon : MonoBehaviour, Weapon {
 	public GameObject bullet;
-	public float damange;
-	public float shootDistance;
 	public float fireRate;
 	public int magCapacity;
 
@@ -28,7 +26,8 @@ public class SpawnerWeapon : MonoBehaviour, Weapon {
 		}
 	}
 	public void shoot(){
-		Instantiate (bullet, transform.GetChild(0).position,transform.GetChild(0).rotation);
+		Instantiate(bullet, transform.GetChild(0).position,transform.GetChild(0).rotation);
+		timeForNextShoot = fireRate;
 	}
 	// Use this for initialization
 	void Start () {
@@ -37,7 +36,9 @@ public class SpawnerWeapon : MonoBehaviour, Weapon {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		timeForNextShoot -= Time.deltaTime;
 		if(Input.GetAxis("Fire1")!=0 && timeForNextShoot<=0){
+			shoot ();
 		}
 	}
 }
