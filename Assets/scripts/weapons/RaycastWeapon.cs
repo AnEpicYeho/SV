@@ -13,7 +13,8 @@ public class RaycastWeapon : MonoBehaviour, Weapon {
 	private float timeForNextShoot;
 	private GameObject target;
 
-	private int ammo=20;
+	public int maxAmmo;
+	private int ammo;
 
 
 
@@ -30,16 +31,23 @@ public class RaycastWeapon : MonoBehaviour, Weapon {
 		}
 	}
 
+	public void addAmmo(int ammo){
+		if(ammo+this.ammo<maxAmmo){
+			this.ammo += ammo;
+		}else{
+			this.ammo = maxAmmo;
+		}
+
+	}
+
 	public void reload(){
 		if(ammo>0 && Input.GetKey(KeyCode.R)){
-			if(ammo>=magCapacity){
+			if (ammo >= magCapacity) {
+				ammo -= magCapacity - bulletsOnMag;
 				bulletsOnMag = magCapacity;
-				ammo -= magCapacity;
-
-			}else{
+			} else {
 				bulletsOnMag += ammo;
 				ammo = 0;
-
 			}
 		}
 	}

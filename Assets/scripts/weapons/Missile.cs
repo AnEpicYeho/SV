@@ -17,7 +17,7 @@ public class Missile : MonoBehaviour {
 		GetComponent<SphereCollider> ().enabled = false;
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void OnTriggerStay(Collider other) {
 		if(other.tag == "Enemy"){
 			target = other.gameObject;
 			GetComponent<SphereCollider> ().enabled = false;
@@ -32,14 +32,11 @@ public class Missile : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Vector3.Distance (searchPosition, transform.position) > 0.5f && !inSearchPosition) {
-			print ("a");
 			goPosition (searchPosition);
 		} else if (target == null) {
-			print ("b");
 			inSearchPosition = true;
 			GetComponent<SphereCollider> ().enabled = true;
 		} else {
-			print ("c");
 			goPosition (target.transform.position);
 			if(Vector3.Distance(target.transform.position,transform.position)<0.8f){
 				target.GetComponent<Character> ().receibeDamange (damange);

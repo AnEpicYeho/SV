@@ -10,22 +10,32 @@ public class SpawnerWeapon : MonoBehaviour, Weapon {
 	private int bulletsOnMag;
 	private float timeForNextShoot;
 
-	private int ammo=20;
+	public int maxAmmo;
+	private int ammo;
+
+	public void addAmmo(int ammo){
+		if(ammo+this.ammo<maxAmmo){
+			this.ammo += ammo;
+		}else{
+			this.ammo = maxAmmo;
+		}
+
+	}
 
 	public void reload(){
 		if(ammo>0 && Input.GetKey(KeyCode.R)){
-			if(ammo>=magCapacity){
+			if (ammo >= magCapacity) {
+				ammo -= magCapacity - bulletsOnMag;
 				bulletsOnMag = magCapacity;
-				ammo -= magCapacity;
-
-			}else{
+			} else {
 				bulletsOnMag += ammo;
 				ammo = 0;
-
 			}
 		}
 	}
+
 	public void shoot(){
+		bulletsOnMag--;
 		Instantiate(bullet, transform.GetChild(0).position,transform.GetChild(0).rotation);
 		timeForNextShoot = fireRate;
 	}
@@ -36,9 +46,14 @@ public class SpawnerWeapon : MonoBehaviour, Weapon {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		reload ();
+		print ("mag=" + bulletsOnMag);
+		print ("ammo" + ammo);
 		timeForNextShoot -= Time.deltaTime;
-		if(Input.GetAxis("Fire1")!=0 && timeForNextShoot<=0){
-			shoot ();
+		if(Input.GetAxis("Fire1")!=0 && timeForNextShoot<=0 && bulletsOnMag>0){
+			while(bulletsOnMag>0){
+				shoot ();
+			}
 		}
 	}
 }
