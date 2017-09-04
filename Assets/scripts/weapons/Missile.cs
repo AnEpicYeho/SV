@@ -12,7 +12,7 @@ public class Missile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		searchPosition = transform.position + new Vector3 (Random.Range(0,3.5f),Random.Range(2,3.5f),Random.Range(1,3.5f));
+		searchPosition = transform.position + new Vector3 (Random.Range(0,3.5f),Random.Range(1,2.5f),Random.Range(2f,3.5f));
 		inSearchPosition = false;
 		GetComponent<SphereCollider> ().enabled = false;
 	}

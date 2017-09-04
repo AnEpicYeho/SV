@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114586416735823176}
   - component: {fileID: 135913628517947600}
   - component: {fileID: 54781460588653018}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: AutoMisile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
