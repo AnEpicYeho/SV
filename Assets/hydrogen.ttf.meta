@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 10c6d8c528155b34586964ee045490b1
+timeCreated: 1504656103
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hydrogen
+  fontNames:
+  - Hydrogen
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

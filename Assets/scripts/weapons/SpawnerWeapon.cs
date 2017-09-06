@@ -13,6 +13,14 @@ public class SpawnerWeapon : MonoBehaviour, Weapon {
 	public int maxAmmo;
 	private int ammo;
 
+	public int getAmmo(){
+		return ammo;
+	}
+
+	public int getMag(){
+		return bulletsOnMag;
+	}	
+
 	public void addAmmo(int ammo){
 		if(ammo+this.ammo<maxAmmo){
 			this.ammo += ammo;

@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
+
+	public GameObject hudMag;
+	public GameObject hudAmmo;
+	public GameObject hudAccesLevel;	
 
 	public GameObject[] weapons;
 	private GameObject activeWeapon;
@@ -17,9 +22,25 @@ public class Inventory : MonoBehaviour {
 
 	public void upgradeAccesLevel(){
 		AccesLevel++;
+		showAccesLevel ();
 	}
 
+	private void showAccesLevel(){
+		hudAccesLevel.GetComponent<Text> ().text = "ACCES TYPE: "+ AccesLevel;
+	}
+
+	private void showWeaponStatus(){
+		int mag = weapons [weaponIndex].GetComponent<Weapon> ().getMag ();
+		int ammo = weapons [weaponIndex].GetComponent<Weapon> ().getAmmo ();
+
+		hudMag.GetComponent<Text> ().text = "MAG: "+mag;
+		hudAmmo.GetComponent<Text> ().text = "AMMO: "+ammo;
+	
+	}
+
+
 	void Start () {
+		showAccesLevel ();
 		foreach(GameObject weapon in weapons){
 			weapon.SetActive (false);
 		}
@@ -32,7 +53,6 @@ public class Inventory : MonoBehaviour {
 		if(weaponIndex >= weapons.Length){
 			weaponIndex = 0;
 		}
-
 		weapons [weaponIndex].SetActive (true);
 
 	}
@@ -51,14 +71,12 @@ public class Inventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		showWeaponStatus ();
 		if (Input.mouseScrollDelta.y > 0) {
 			selectNextWeapon ();
 		} else if(Input.mouseScrollDelta.y < 0) {
 			selectPreviousWeapon ();
 		}
 		
-	}
-
-	private void changeActiveWeapon(){
 	}
 }

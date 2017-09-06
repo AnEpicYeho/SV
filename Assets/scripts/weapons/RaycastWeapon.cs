@@ -16,7 +16,13 @@ public class RaycastWeapon : MonoBehaviour, Weapon {
 	public int maxAmmo;
 	private int ammo;
 
+	public int getAmmo(){
+		return ammo;
+	}
 
+	public int getMag(){
+		return bulletsOnMag;
+	}
 
 	// Use this for initialization
 	void Start () {
