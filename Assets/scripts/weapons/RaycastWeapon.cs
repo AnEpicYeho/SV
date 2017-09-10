@@ -32,8 +32,8 @@ public class RaycastWeapon : MonoBehaviour, Weapon {
 	public void shoot(){
 
 		bulletsOnMag--;
-		if(target.GetComponent<Character>()!=null){
-			target.GetComponent<Character> ().receibeDamange (damange);
+		if(target.GetComponent<Damageable>()!=null){
+			target.GetComponent<Damageable> ().receibeDamange (damange);
 		}
 	}
 

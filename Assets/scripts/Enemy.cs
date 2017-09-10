@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, Character {
+public class Enemy : MonoBehaviour, Damageable {
 
 	private float healt = 100;
 	public float armor;

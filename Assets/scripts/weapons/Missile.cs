@@ -12,8 +12,6 @@ public class Missile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		searchPosition = transform.position + new Vector3 (Random.Range(0,3.5f),Random.Range(1,2.5f),Random.Range(2f,3.5f));
-		inSearchPosition = false;
 		GetComponent<SphereCollider> ().enabled = false;
 	}
 
@@ -31,15 +29,13 @@ public class Missile : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (Vector3.Distance (searchPosition, transform.position) > 0.5f && !inSearchPosition) {
-			goPosition (searchPosition);
-		} else if (target == null) {
+		if (target == null) {
 			inSearchPosition = true;
 			GetComponent<SphereCollider> ().enabled = true;
 		} else {
 			goPosition (target.transform.position);
 			if(Vector3.Distance(target.transform.position,transform.position)<0.8f){
-				target.GetComponent<Character> ().receibeDamange (damange);
+				target.GetComponent<Damageable> ().receibeDamange (damange);
 				Destroy (this.gameObject);
 			}
 		}
