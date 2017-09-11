@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, Damageable {
+public class EnemyMelee : MonoBehaviour, Damageable {
 
 	private float healt = 100;
 	public float armor;
